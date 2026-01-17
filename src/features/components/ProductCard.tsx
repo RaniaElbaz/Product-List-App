@@ -13,7 +13,7 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product, style }: ProductCardProps) => {
-  const { description, title, image, price } = product || {};
+  const { description, title, image, price, tags } = product || {};
 
   return (
     <View style={[styles.card, style]}>
@@ -27,7 +27,7 @@ const ProductCard = ({ product, style }: ProductCardProps) => {
         resizeMode={'contain'}
       />
       <View style={styles.infoContainer}>
-        <View style={{ gap: 4 }}>
+        <View style={{ gap: 3 }}>
           <Text color={colors.primary} weight={TextVariant.SemiBold}>
             {title}
           </Text>
@@ -42,6 +42,19 @@ const ProductCard = ({ product, style }: ProductCardProps) => {
         >
           ${price}
         </Text>
+        <View style={styles.tagsContainer}>
+          {tags?.map(tag => (
+            <Text
+              key={tag}
+              style={styles.tag}
+              size={12}
+              weight={TextVariant.Medium}
+              color={colors.primary}
+            >
+              {tag}
+            </Text>
+          ))}
+        </View>
       </View>
     </View>
   );
@@ -55,21 +68,37 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.greyish,
     borderRadius: 8,
-    padding: 8,
     flexDirection: 'row',
-    gap: 8,
+    height: 140,
+    elevation: 2,
+    backgroundColor: colors.white,
   },
   productImage: {
-    width: 100,
-    height: 90,
-    borderRadius: 10,
+    width: 138,
+    height: 138,
+    borderRadius: 8,
+    borderTopEndRadius: 0,
+    borderBottomEndRadius: 0,
   },
   infoContainer: {
     flex: 1,
-    gap: 5,
+    gap: 3,
+    padding: 8,
     justifyContent: 'space-between',
   },
   price: {
     alignSelf: 'flex-end',
+  },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+  tag: {
+    backgroundColor: colors.greyish,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    maxHeight: 20,
   },
 });

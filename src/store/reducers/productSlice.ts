@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import products from 'src/content/products.json';
 import { RootState } from 'src/store/store';
 import { productType } from 'src/types/features/products';
-import products from 'src/content/products.json';
+import { lowerCaseHandler } from 'src/utils/common';
 
 export type ProductsDataType = {
   data: productType[];
-  sortedData?: productType[];
-  sorting?: 'asc' | 'desc' | undefined;
+  sorting?: 'asc' | 'desc';
+  searchKey: string;
 };
 
 const initialState: ProductsDataType = {
   data: products,
-  sortedData: [],
   sorting: undefined,
+  searchKey: '',
 };
 
 export const productSlice = createSlice({
@@ -22,30 +23,19 @@ export const productSlice = createSlice({
     setProducts: (state, action) => {
       state.data = action.payload;
     },
-    //SORTING 
+    //SORTING
     sortByPrice: (state, action) => {
-      if (!action.payload) {
-        // reset sorting
-        state.sortedData = state.data;
-        state.sorting = undefined;
-      } else if (action.payload === 'asc') {
-        // ascending sort
-        state.sorting = 'asc';
-        state.sortedData = [...state.data].sort(
-          (current, next) => current.price - next.price,
-        );
-      } else if (action.payload === 'desc') {
-        // descending sort
-        state.sorting = 'desc';
-        state.sortedData = [...state.data].sort(
-          (current, next) => next.price - current.price,
-        );
-      }
+      state.sorting = action.payload;
+    },
+    //SEARCH
+    searchInProducts: (state, action) => {
+      state.searchKey = lowerCaseHandler(action.payload);
     },
   },
 });
 
 export const productsData = (state: RootState) => state.products;
-export const { setProducts, sortByPrice } = productSlice.actions;
+export const { setProducts, sortByPrice, searchInProducts } =
+  productSlice.actions;
 
 export default productSlice.reducer;
