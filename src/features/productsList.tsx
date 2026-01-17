@@ -1,15 +1,19 @@
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import colors from 'src/assets/colors';
 import Text from 'src/components/Text';
-import products from 'src/content/products.json';
 import ProductCard from 'src/features/components/ProductCard';
 import { useOrientation } from 'src/hooks/useOrientation';
+import { productsData } from 'src/store/reducers/productSlice';
+import { useAppSelector } from 'src/store/store';
 import { Orientation, TextVariant } from 'src/types/common';
+import SortingButton from './components/SortingButton';
 
 const ProductList = () => {
+  const { data, sortedData, sorting } = useAppSelector(productsData);
   const { orientation } = useOrientation();
+
   const listKey = orientation === Orientation.Landscape ? 2 : 1;
 
   return (
@@ -17,11 +21,14 @@ const ProductList = () => {
       <Text color={colors.primary} size={20} weight={TextVariant.Bold}>
         Products
       </Text>
+      <View style={styles.actionButtonsRow}>
+        <SortingButton />
+      </View>
       <FlatList
         key={listKey}
         keyExtractor={item => item.id.toString()}
         numColumns={listKey}
-        data={products}
+        data={sorting ? sortedData : data}
         renderItem={({ item }) => <ProductCard product={item} />}
         contentContainerStyle={styles.list}
         columnWrapperStyle={listKey > 1 ? styles.columnStyle : undefined}
@@ -50,5 +57,10 @@ const styles = StyleSheet.create({
   },
   productCard: {
     marginBottom: 8,
+  },
+  actionButtonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    backgroundColor: colors.greyish,
   },
 });
