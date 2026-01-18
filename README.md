@@ -24,6 +24,11 @@ The app focuses on efficient list rendering, state management, and scalable arch
 
 ---
 
+## UI
+Functional and minimal, aligned with task scope.
+
+---
+
 ## Tech Stack
 
 - **React Native** 0.83.1
