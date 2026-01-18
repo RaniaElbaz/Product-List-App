@@ -6,8 +6,15 @@ const selectedProducts = (state: RootState) => state.products;
 
 export const filteredProducts = createSelector(
   [selectedProducts],
-  ({ data, searchKey, sorting }) => {
+  ({ data, searchKey, sorting, deletedIds }) => {
     let products = data;
+
+    // DELETE
+    if (deletedIds.length) {
+      products = products.filter(product =>
+        !deletedIds.some(id => id == product.id),
+      );
+    }
 
     // SEARCH
     if (searchKey && searchKey.length >= 3) {

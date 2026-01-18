@@ -4,7 +4,7 @@ export default {
   primary: "#163e60",
   active: "#0b66c7",
   inactive: "#21354d",
-  discount: "#942639",
+  delete: "#942639",
   white: "#ffffff",
   black: "#000000",
 };

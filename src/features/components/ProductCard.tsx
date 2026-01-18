@@ -2,6 +2,7 @@ import FastImage from '@d11/react-native-fast-image';
 import React, { memo } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import colors from 'src/assets/colors';
+import Checkbox from 'src/components/Checkbox';
 import Image from 'src/components/Image';
 import Text from 'src/components/Text';
 import { TextVariant } from 'src/types/common';
@@ -10,10 +11,11 @@ import { productType } from 'src/types/features/products';
 type ProductCardProps = {
   product?: productType;
   style?: StyleProp<ViewStyle>;
+  onSelectProduct: (id: number | undefined) => void;
 };
 
-const ProductCard = ({ product, style }: ProductCardProps) => {
-  const { description, title, image, price, tags } = product || {};
+const ProductCard = ({ product, style, onSelectProduct }: ProductCardProps) => {
+  const { description, title, image, price, tags, id } = product || {};
 
   return (
     <View style={[styles.card, style]}>
@@ -26,6 +28,7 @@ const ProductCard = ({ product, style }: ProductCardProps) => {
         }}
         resizeMode={'contain'}
       />
+      <Checkbox onPress={() => onSelectProduct(id)} style={styles.checkbox} />
       <View style={styles.infoContainer}>
         <View style={{ gap: 3 }}>
           <Text color={colors.primary} weight={TextVariant.SemiBold}>
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flex: 1,
-    gap: 3,
+    columnGap: 3,
     padding: 8,
     justifyContent: 'space-between',
   },
@@ -100,5 +103,10 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     borderRadius: 4,
     maxHeight: 20,
+  },
+  checkbox: {
+    position: 'absolute',
+    top: 8,
+    start: 8,
   },
 });
