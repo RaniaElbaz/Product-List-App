@@ -14,6 +14,13 @@ The app focuses on efficient list rendering, state management, and scalable arch
 - Multi-select products
 - Delete selected products
 - Optimized list rendering using FlashList
+<p align="center">
+<img width="30%"  alt="image" src="https://github.com/user-attachments/assets/b083f77b-0f03-4378-92fe-6a7b519e093d" />
+<img width="30%"  alt="image" src="https://github.com/user-attachments/assets/bd523a62-c852-45ec-9c04-0aa317f23864" />
+<img width="30%"  alt="image" src="https://github.com/user-attachments/assets/6a35d418-34d7-4366-9dd1-65068f08eae6" />
+
+</p>
+
 
 ---
 
